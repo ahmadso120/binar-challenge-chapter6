@@ -1,0 +1,68 @@
+package com.sopian.challenge5.data
+
+import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.liveData
+import com.sopian.challenge5.data.source.local.MovieLocalDataSource
+import com.sopian.challenge5.data.source.remote.MoviePagingSource
+import com.sopian.challenge5.data.source.remote.network.ApiService
+import com.sopian.challenge5.domain.model.Movie
+import com.sopian.challenge5.mapper.Mapper
+import com.sopian.challenge5.utils.AppExecutors
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
+
+interface MovieRepository {
+    fun getPopularMovies(): LiveData<PagingData<Movie>>
+    fun getFavoriteMovies(): Flow<List<Movie>>
+    fun setFavoriteMovie(movie: Movie, state: Boolean)
+    suspend fun deleteAllMovie()
+}
+
+class MovieRepositoryImpl private constructor(
+    private val apiService: ApiService,
+    private val movieLocalDataSource: MovieLocalDataSource,
+    private val appExecutors: AppExecutors
+) : MovieRepository {
+
+    override fun getPopularMovies(): LiveData<PagingData<Movie>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 10
+            ),
+            pagingSourceFactory = {
+                MoviePagingSource(apiService)
+            }
+        ).liveData
+    }
+
+    override fun getFavoriteMovies(): Flow<List<Movie>> =
+        movieLocalDataSource.getAllMovie().map {
+            Mapper.mapEntitiesToDomain(it)
+        }
+
+    override fun setFavoriteMovie(movie: Movie, state: Boolean) {
+        val movieEntity = Mapper.mapDomainToEntity(movie)
+        appExecutors.diskIO().execute { movieLocalDataSource.setFavoriteMovie(movieEntity, state) }
+    }
+
+    override suspend fun deleteAllMovie() = movieLocalDataSource.deleteAllMovie()
+
+    companion object {
+        @Volatile
+        private var instance: MovieRepositoryImpl? = null
+        fun getInstance(
+            apiService: ApiService,
+            movieLocalDataSource: MovieLocalDataSource,
+            appExecutors: AppExecutors
+        ): MovieRepositoryImpl =
+            instance ?: synchronized(this) {
+                instance ?: MovieRepositoryImpl(apiService, movieLocalDataSource, appExecutors)
+            }
+    }
+}
+
