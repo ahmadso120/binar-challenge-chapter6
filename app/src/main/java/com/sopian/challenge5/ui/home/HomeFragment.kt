@@ -1,5 +1,6 @@
 package com.sopian.challenge5.ui.home
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sopian.challenge5.databinding.FragmentHomeBinding
 import by.kirich1409.viewbindingdelegate.viewBinding
+import com.sopian.challenge5.App
 import com.sopian.challenge5.utils.EventObserver
 import com.sopian.challenge5.R
 import com.sopian.challenge5.data.source.local.entity.MovieEntity
@@ -22,24 +24,33 @@ import com.sopian.challenge5.ui.ViewModelFactory
 import com.sopian.challenge5.ui.login.LoginFragment.Companion.EMAIL
 import com.sopian.challenge5.utils.enableStatusBar
 import com.sopian.challenge5.utils.initialLoadState
+import javax.inject.Inject
 
 class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private val binding: FragmentHomeBinding by viewBinding()
 
-    private val viewModelFactory by lazy { ViewModelFactory.getInstance(requireContext()) }
+    @Inject
+    lateinit var factory: ViewModelFactory
+
     private val homeViewModel: HomeViewModel by viewModels {
-        viewModelFactory
+        factory
     }
 
     private lateinit var movieAdapter: MovieAdapter
 
-    private lateinit var storage: Storage
+    @Inject
+    lateinit var storage: Storage
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as App).appComponent.inject(this)
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        storage = SharedPreferencesStorage(requireContext())
+//        storage = SharedPreferencesStorage(requireContext())
 
         val email = storage.getString(EMAIL)
         val welcomeMessage = "Hello, $email"

@@ -3,8 +3,11 @@ package com.sopian.challenge5.data.source.local
 import com.sopian.challenge5.data.source.local.entity.MovieEntity
 import com.sopian.challenge5.data.source.local.room.MovieDao
 import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MovieLocalDataSource private constructor(private val movieDao: MovieDao) {
+@Singleton
+class MovieLocalDataSource @Inject constructor(private val movieDao: MovieDao) {
 
     fun getAllMovie(): Flow<List<MovieEntity>> = movieDao.getAllMovie()
 
@@ -18,14 +21,4 @@ class MovieLocalDataSource private constructor(private val movieDao: MovieDao) {
     }
 
     suspend fun deleteAllMovie() = movieDao.deleteAll()
-
-    companion object {
-        @Volatile
-        private var instance: MovieLocalDataSource? = null
-
-        fun getInstance(movieDao: MovieDao): MovieLocalDataSource =
-            instance ?: synchronized(this) {
-                instance ?: MovieLocalDataSource(movieDao)
-            }
-    }
 }

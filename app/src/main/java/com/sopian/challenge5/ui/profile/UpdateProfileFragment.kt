@@ -1,5 +1,6 @@
 package com.sopian.challenge5.ui.profile
 
+import android.content.Context
 import android.os.Build
 import android.os.Bundle
 import android.text.InputType
@@ -8,10 +9,12 @@ import android.view.WindowInsets
 import androidx.annotation.RequiresApi
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.datepicker.MaterialDatePicker
+import com.sopian.challenge5.App
 import com.sopian.challenge5.R
 import com.sopian.challenge5.data.source.local.entity.UserEntity
 import com.sopian.challenge5.databinding.FragmentProfileBinding
@@ -20,11 +23,13 @@ import com.sopian.challenge5.storage.Storage
 import com.sopian.challenge5.ui.ViewModelFactory
 import com.sopian.challenge5.ui.login.LoginFragment.Companion.EMAIL
 import com.sopian.challenge5.ui.login.LoginFragment.Companion.IS_LOGGED_IN
+import com.sopian.challenge5.ui.login.LoginViewModel
 import com.sopian.challenge5.utils.showSnackBar
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
+import javax.inject.Inject
 
 class UpdateProfileFragment : Fragment(R.layout.fragment_profile) {
 
@@ -32,14 +37,19 @@ class UpdateProfileFragment : Fragment(R.layout.fragment_profile) {
 
     private var currentSelectedDate: Long? = null
 
-    private lateinit var storage: Storage
+    @Inject
+    lateinit var storage: Storage
 
-    private val viewModelFactory by lazy { ViewModelFactory.getInstance(requireActivity()) }
-    private val profileViewModel: ProfileViewModel by lazy {
-        ViewModelProvider(
-            this,
-            viewModelFactory
-        )[ProfileViewModel::class.java]
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val profileViewModel: ProfileViewModel by viewModels {
+        factory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as App).appComponent.inject(this)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

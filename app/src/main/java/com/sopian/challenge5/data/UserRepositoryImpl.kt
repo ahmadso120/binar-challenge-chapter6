@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.sopian.challenge5.data.source.local.UserLocalDataSource
 import com.sopian.challenge5.data.source.local.entity.UserEntity
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface UserRepository {
     fun getUser(email: String): LiveData<UserEntity?>
@@ -14,21 +16,10 @@ interface UserRepository {
     suspend fun setIsAuthorized(userEntity: UserEntity, isAuthorizedState: Boolean)
 }
 
-class UserRepositoryImpl private constructor(
+@Singleton
+class UserRepositoryImpl @Inject constructor(
     private val userLocalDataSource: UserLocalDataSource
 ) : UserRepository {
-
-    companion object {
-        @Volatile
-        private var instance: UserRepositoryImpl? = null
-
-        fun getInstance(
-            userLocalDataSource: UserLocalDataSource
-        ): UserRepositoryImpl =
-            instance ?: synchronized(this) {
-                instance ?: UserRepositoryImpl(userLocalDataSource)
-            }
-    }
 
     override fun getUser(email: String): LiveData<UserEntity?> =
         userLocalDataSource.getUser(email)

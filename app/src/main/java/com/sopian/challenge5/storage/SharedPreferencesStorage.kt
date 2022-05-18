@@ -2,6 +2,8 @@ package com.sopian.challenge5.storage
 
 import android.content.Context
 import androidx.core.content.edit
+import javax.inject.Inject
+import javax.inject.Singleton
 
 interface Storage {
     fun setString(key: String, value: String)
@@ -11,7 +13,7 @@ interface Storage {
     fun getBoolean(key: String): Boolean
 }
 
-class SharedPreferencesStorage (context: Context) : Storage {
+class SharedPreferencesStorage @Inject constructor(context: Context) : Storage {
 
     private val sharedPreferences = context.getSharedPreferences("Dagger", Context.MODE_PRIVATE)
 

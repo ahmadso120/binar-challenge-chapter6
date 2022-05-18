@@ -4,8 +4,9 @@ import androidx.lifecycle.LiveData
 import androidx.paging.PagingData
 import com.sopian.challenge5.data.MovieRepository
 import com.sopian.challenge5.domain.model.Movie
+import javax.inject.Inject
 
-class GetPopularMovieUseCase(
+class GetPopularMovieUseCase @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
     operator fun invoke(): LiveData<PagingData<Movie>> {

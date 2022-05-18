@@ -1,27 +1,36 @@
 package com.sopian.challenge5.ui.register
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
+import com.sopian.challenge5.App
 import com.sopian.challenge5.R
 import com.sopian.challenge5.data.source.local.entity.UserEntity
 import com.sopian.challenge5.databinding.FragmentRegisterBinding
 import com.sopian.challenge5.ui.ViewModelFactory
+import com.sopian.challenge5.ui.profile.ProfileViewModel
+import javax.inject.Inject
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {
 
     private val binding: FragmentRegisterBinding by viewBinding()
 
-    private val viewModelFactory by lazy { ViewModelFactory.getInstance(requireActivity()) }
-    private val registerViewModel: RegisterViewModel by lazy {
-        ViewModelProvider(
-            this,
-            viewModelFactory
-        )[RegisterViewModel::class.java]
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val registerViewModel: RegisterViewModel by viewModels {
+        factory
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        (requireActivity().application as App).appComponent.inject(this)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

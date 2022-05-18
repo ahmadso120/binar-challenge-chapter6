@@ -1,9 +1,7 @@
 package com.sopian.challenge5.ui
 
-import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.sopian.challenge5.Injection
 import com.sopian.challenge5.domain.usecase.favorite.GetFavoriteMovieUseCase
 import com.sopian.challenge5.domain.usecase.favorite.SetFavoriteMovieUseCase
 import com.sopian.challenge5.domain.usecase.login.LoginUseCase
@@ -19,8 +17,9 @@ import com.sopian.challenge5.ui.home.HomeViewModel
 import com.sopian.challenge5.ui.login.LoginViewModel
 import com.sopian.challenge5.ui.profile.ProfileViewModel
 import com.sopian.challenge5.ui.register.RegisterViewModel
+import javax.inject.Inject
 
-class ViewModelFactory private constructor(
+class ViewModelFactory @Inject constructor(
     private val getPopularMovieUseCase: GetPopularMovieUseCase,
     private val registerUserUseCase: RegisterUserUseCase,
     private val loginUseCase: LoginUseCase,
@@ -32,27 +31,27 @@ class ViewModelFactory private constructor(
     private val getFavoriteMovieUseCase: GetFavoriteMovieUseCase,
     private val setFavoriteMovieUseCase: SetFavoriteMovieUseCase
 ) : ViewModelProvider.NewInstanceFactory() {
-    companion object {
-        @Volatile
-        private var instance: ViewModelFactory? = null
-
-        fun getInstance(context: Context): ViewModelFactory =
-            instance ?: synchronized(this) {
-                instance ?: ViewModelFactory(
-                    Injection.provideGetPopularMovieUseCase(context.applicationContext),
-                    Injection.provideRegisterUserUseCase(context.applicationContext),
-                    Injection.provideDoLoginUserUseCase(context.applicationContext),
-                    Injection.provideSetIsAuthorizedUseCase(context.applicationContext),
-                    Injection.provideGetUserUseCase(context.applicationContext),
-                    Injection.provideUpdateUserUseCase(context.applicationContext),
-                    Injection.provideDeleteAllUserUseCase(context.applicationContext),
-                    Injection.provideDeleteAllMovieUseCase(context.applicationContext),
-                    Injection.provideGetFavoriteMovieUseCase(context.applicationContext),
-                    Injection.provideSetFavoriteMovieUseCase(context.applicationContext)
-                )
-            }
-
-    }
+//    companion object {
+//        @Volatile
+//        private var instance: ViewModelFactory? = null
+//
+//        fun getInstance(context: Context): ViewModelFactory =
+//            instance ?: synchronized(this) {
+//                instance ?: ViewModelFactory(
+//                    Injection.provideGetPopularMovieUseCase(context.applicationContext),
+//                    Injection.provideRegisterUserUseCase(context.applicationContext),
+//                    Injection.provideDoLoginUserUseCase(context.applicationContext),
+//                    Injection.provideSetIsAuthorizedUseCase(context.applicationContext),
+//                    Injection.provideGetUserUseCase(context.applicationContext),
+//                    Injection.provideUpdateUserUseCase(context.applicationContext),
+//                    Injection.provideDeleteAllUserUseCase(context.applicationContext),
+//                    Injection.provideDeleteAllMovieUseCase(context.applicationContext),
+//                    Injection.provideGetFavoriteMovieUseCase(context.applicationContext),
+//                    Injection.provideSetFavoriteMovieUseCase(context.applicationContext)
+//                )
+//            }
+//
+//    }
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T =

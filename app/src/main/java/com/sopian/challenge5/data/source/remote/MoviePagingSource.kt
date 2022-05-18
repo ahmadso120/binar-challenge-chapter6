@@ -5,8 +5,13 @@ import androidx.paging.PagingState
 import com.sopian.challenge5.data.source.remote.network.ApiService
 import com.sopian.challenge5.domain.model.Movie
 import com.sopian.challenge5.mapper.Mapper
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class MoviePagingSource(private val apiService: ApiService) : PagingSource<Int, Movie>() {
+@Singleton
+class MoviePagingSource @Inject constructor(private val apiService: ApiService) :
+    PagingSource<Int, Movie>() {
+
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             val anchorPage = state.closestPageToPosition(anchorPosition)

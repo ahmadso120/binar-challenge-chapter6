@@ -2,9 +2,7 @@ package com.sopian.challenge5.ui
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
-import com.sopian.challenge5.Injection
 import com.sopian.challenge5.R
 import com.sopian.challenge5.storage.SharedPreferencesStorage
 import com.sopian.challenge5.storage.Storage
