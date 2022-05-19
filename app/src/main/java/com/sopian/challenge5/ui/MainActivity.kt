@@ -3,20 +3,22 @@ package com.sopian.challenge5.ui
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.sopian.challenge5.App
 import com.sopian.challenge5.R
-import com.sopian.challenge5.storage.SharedPreferencesStorage
 import com.sopian.challenge5.storage.Storage
 import com.sopian.challenge5.ui.login.LoginFragment.Companion.IS_LOGGED_IN
 import com.sopian.challenge5.utils.EdgeToEdgeUtils
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var storage: Storage
+    @Inject
+    lateinit var storage: Storage
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as App).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        storage = SharedPreferencesStorage(this)
 
         val navHostFragment =
             supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment

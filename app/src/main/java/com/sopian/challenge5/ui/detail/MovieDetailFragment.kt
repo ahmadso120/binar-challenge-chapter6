@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -20,7 +19,6 @@ import com.sopian.challenge5.databinding.FragmentMovieDetailBinding
 import com.sopian.challenge5.domain.model.Movie
 import com.sopian.challenge5.ui.ViewModelFactory
 import com.sopian.challenge5.ui.favorite.FavoriteViewModel
-import com.sopian.challenge5.ui.home.HomeViewModel
 import com.sopian.challenge5.utils.DateFormatter
 import com.sopian.challenge5.utils.enableStatusBar
 import com.sopian.challenge5.utils.loadPhotoUrl

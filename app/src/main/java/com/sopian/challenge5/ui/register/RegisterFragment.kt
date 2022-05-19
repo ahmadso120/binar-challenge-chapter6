@@ -2,10 +2,9 @@ package com.sopian.challenge5.ui.register
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
@@ -14,7 +13,6 @@ import com.sopian.challenge5.R
 import com.sopian.challenge5.data.source.local.entity.UserEntity
 import com.sopian.challenge5.databinding.FragmentRegisterBinding
 import com.sopian.challenge5.ui.ViewModelFactory
-import com.sopian.challenge5.ui.profile.ProfileViewModel
 import javax.inject.Inject
 
 class RegisterFragment : Fragment(R.layout.fragment_register) {

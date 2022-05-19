@@ -14,7 +14,6 @@ import com.sopian.challenge5.domain.usecase.profile.UpdateUserUseCase
 import com.sopian.challenge5.domain.usecase.register.RegisterUserUseCase
 import dagger.Module
 import dagger.Provides
-import javax.inject.Singleton
 
 @Module
 object AppModule {

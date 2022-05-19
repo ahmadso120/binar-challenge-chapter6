@@ -12,10 +12,7 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.sopian.challenge5.App
 import com.sopian.challenge5.R
 import com.sopian.challenge5.databinding.FragmentFavoriteBinding
-import com.sopian.challenge5.ui.home.HomeViewModel
 import com.sopian.challenge5.ui.ViewModelFactory
-import com.sopian.challenge5.ui.home.HomeFragmentDirections
-import com.sopian.challenge5.ui.home.MovieAdapter
 import com.sopian.challenge5.utils.EventObserver
 import javax.inject.Inject
 

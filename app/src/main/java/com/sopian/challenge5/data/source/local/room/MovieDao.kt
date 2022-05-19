@@ -1,9 +1,7 @@
 package com.sopian.challenge5.data.source.local.room
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.sopian.challenge5.data.source.local.entity.MovieEntity
-import com.sopian.challenge5.domain.model.Movie
 import kotlinx.coroutines.flow.Flow
 
 @Dao

@@ -1,7 +1,6 @@
 package com.sopian.challenge5.data
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.sopian.challenge5.data.source.local.UserLocalDataSource
 import com.sopian.challenge5.data.source.local.entity.UserEntity
 import javax.inject.Inject

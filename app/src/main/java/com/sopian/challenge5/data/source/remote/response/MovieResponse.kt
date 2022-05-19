@@ -1,8 +1,6 @@
 package com.sopian.challenge5.data.source.remote.response
 
-import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.parcelize.Parcelize
 
 data class MovieResponse(
     @SerializedName("id") val id: Long,
