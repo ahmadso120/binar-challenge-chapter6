@@ -1,6 +1,8 @@
 ### Challenge 6 - Binar Academy
 
-a simple movie application using [Manual Dependency Injection](https://developer.android.com/training/dependency-injection/manual) for providing objects
+This is a sample project which demonstrates how to create infinite lists with Paging 3 library using modern Android Architecture Components(Kotlin, kotlin coroutines, MVVM, Paging 3 Library, Navigatiom Room, ViewModel).
+
+
 
 ### TheMovieDb API key
 
@@ -33,12 +35,17 @@ Libraries Used
   * [Animations & Transitions][31] - Move widgets and transition between screens.
   * [Fragment][34] - A basic unit of composable UI.
   * [Layout][35] - Lay out widgets using different algorithms.
+  * [Paging 3][5] - For implementing paging
 * Third party and miscellaneous libraries
   * [Glide][90] for image loading
+  * [Dagger 2][3] for [Dependency Injection][4]
   * [Kotlin Coroutines][91] for managing background threads with simplified code and reducing needs for callbacks
 
 [0]: https://developer.android.com/jetpack/components
 [2]: https://developer.android.com/kotlin/ktx
+[3]: https://dagger.dev
+[4]: https://developer.android.com/training/dependency-injection/dagger-android
+[5]: https://developer.android.com/topic/libraries/architecture/paging/v3-overview
 [10]: https://developer.android.com/jetpack/arch/
 [13]: https://developer.android.com/topic/libraries/architecture/livedata
 [14]: https://developer.android.com/topic/libraries/architecture/navigation/
