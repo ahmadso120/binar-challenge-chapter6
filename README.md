@@ -1,4 +1,4 @@
-### Challenge 5 - Binar Academy
+### Challenge 6 - Binar Academy
 
 a simple movie application using [Manual Dependency Injection](https://developer.android.com/training/dependency-injection/manual) for providing objects
 
